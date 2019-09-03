@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jzz.mapper.OrderDetailMapper">
+
+
+    <resultMap id="orderDetailMap" type="OrderDetail">
+        <id column="detail_id" property="detailId"/>
+        <result column="order_id" property="orderId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="counts" property="counts"/>
+    </resultMap>
+
+
+    <select id="selectAll" resultMap="orderDetailMap">
+        select <include refid="columnAll"></include> from s_order_detail where order_id = #{orderId}
+    </select>
+
+
+    <delete id="deleteOrderById">
+        delete from s_order_detail where order_id = #{orderId}
+    </delete>
+
+
+    <update id="updateOrder" >
+        update s_order_detail set goods_id = #{goodsId}, counts = #{counts} where detail_id = #{detailId} and order_id = #{orderId}
+    </update>
+
+
+
+    <sql id="columnAll">
+        detail_id,order_id,goods_id,counts
+    </sql>
+
+
+    <insert id="insertDetail">
+        insert into s_order_detail values (#{detailId},#{orderId},#{goodsId},#{counts})
+    </insert>
+
+
+</mapper>
